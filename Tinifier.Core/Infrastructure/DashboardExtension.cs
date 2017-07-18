@@ -40,7 +40,7 @@ namespace Tinifier.Core.Infrastructure
             if (node != null)
             {
                 var parent = node.ParentNode;
-                if (parent != null) parent?.RemoveChild(node);
+                if (parent != null) parent.RemoveChild(node);
                 doc.Save(path);
             }
         }
