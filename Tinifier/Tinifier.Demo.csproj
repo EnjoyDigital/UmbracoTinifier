@@ -315,6 +315,7 @@
     <Content Include="App_Plugins\Tinifier\Controllers\TinifierEditTimage.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\TinifierEditTSetting.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\TinyTImage.controller.js" />
+    <Content Include="App_Plugins\Tinifier\Lang\en-GB.xml" />
     <Content Include="App_Plugins\Tinifier\Lang\en-US.xml" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
@@ -344,10 +345,12 @@
     <Content Include="Global.asax" />
     <Content Include="Media\1057\grass-png-4770.png" />
     <Content Include="Media\1058\firefox_png16.png" />
+    <Content Include="Media\Pictures\fat.jpg" />
     <Content Include="Media\Pictures\photo.jpg" />
     <Content Include="Media\Pictures\runPanda.jpg" />
     <Content Include="Media\Pictures\sleeping_panda_by_citruspop-d2v8hdd.jpg" />
     <Content Include="Media\Pictures\spinner.gif" />
+    <Content Include="Media\Pictures\support.jpg" />
     <Content Include="scripts\fanoe.js" />
     <Content Include="Web.config" />
   </ItemGroup>
