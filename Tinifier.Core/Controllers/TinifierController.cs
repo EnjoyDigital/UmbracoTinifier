@@ -10,7 +10,6 @@ using Tinifier.Core.Infrastructure;
 using Tinifier.Core.Infrastructure.Enums;
 using Tinifier.Core.Infrastructure.Exceptions;
 using Tinifier.Core.Models.Db;
-using Tinifier.Core.Services.BackendDevs;
 using Tinifier.Core.Services.History;
 using Tinifier.Core.Services.Media;
 using Tinifier.Core.Services.Settings;
@@ -30,7 +29,6 @@ namespace Tinifier.Core.Controllers
         private readonly ISettingsService _settingsService;
         private readonly IStateService _stateService;
         private readonly IValidationService _validationService;
-        private readonly IBackendDevsConnector _backendDevsConnectorService;
 
         public TinifierController()
         {
@@ -40,7 +38,6 @@ namespace Tinifier.Core.Controllers
             _settingsService = new SettingsService();
             _stateService = new StateService();
             _validationService = new ValidationService();
-            _backendDevsConnectorService = new BackendDevsConnectorService();
         }
 
         /// <summary>
@@ -179,7 +176,6 @@ namespace Tinifier.Core.Controllers
         private async Task<HttpResponseMessage> CallTinyPngService(IEnumerable<TImage> imagesList, SourceTypes sourceType = SourceTypes.Folder)
         {
             var nonOptimizedImagesCount = 0;
-            var userDomain = HttpContext.Current.Request.Url.Host;
 
             foreach (var image in imagesList)
             {
@@ -194,15 +190,6 @@ namespace Tinifier.Core.Controllers
                 }
 
                 _imageService.UpdateImageAfterSuccessfullRequest(tinyResponse, image);
-
-                try
-                {
-                    HostingEnvironment.QueueBackgroundWorkItem(stat => _backendDevsConnectorService.SendStatistic(userDomain));
-                }
-                catch(NotSuccessfullRequestException)
-                {
-                    continue;
-                }
             }
 
             if (nonOptimizedImagesCount > 0)

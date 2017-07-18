@@ -286,7 +286,6 @@
     <Compile Include="Models\Services\HistoriesStatisticModel.cs" />
     <Compile Include="Repository\Common\IEntityRemover.cs" />
     <Compile Include="Repository\State\TStateRepository.cs" />
-    <Compile Include="Services\BackendDevs\IBackendDevsConnector.cs" />
     <Compile Include="Services\History\IHistoryService.cs" />
     <Compile Include="Services\Media\IImageService.cs" />
     <Compile Include="Services\Settings\ISettingsService.cs" />
@@ -320,7 +319,6 @@
     <Compile Include="Repository\Settings\TSettingsRepository.cs" />
     <Compile Include="Repository\Statistic\TStatisticRepository.cs" />
     <Compile Include="Services\Validation\IValidationService.cs" />
-    <Compile Include="Services\BackendDevs\BackendDevsConnectorService.cs" />
     <Compile Include="Services\History\HistoryService.cs" />
     <Compile Include="Services\Media\ImageService.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />

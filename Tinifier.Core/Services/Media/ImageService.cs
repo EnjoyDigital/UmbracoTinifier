@@ -10,7 +10,6 @@ using Tinifier.Core.Models.API;
 using Tinifier.Core.Models.Db;
 using Tinifier.Core.Models.Services;
 using Tinifier.Core.Repository.Image;
-using Tinifier.Core.Services.BackendDevs;
 using Tinifier.Core.Services.History;
 using Tinifier.Core.Services.State;
 using Tinifier.Core.Services.Statistic;
@@ -28,7 +27,6 @@ namespace Tinifier.Core.Services.Media
         private readonly IStatisticService _statisticService;
         private readonly IStateService _stateService;
         private readonly ITinyPNGConnector _tinyPngConnectorService;
-        private readonly IBackendDevsConnector _backendDevsConnectorService;
 
         public ImageService()
         {
@@ -39,7 +37,6 @@ namespace Tinifier.Core.Services.Media
             _statisticService = new StatisticService();
             _stateService = new StateService();
             _tinyPngConnectorService = new TinyPNGConnectorService();
-            _backendDevsConnectorService = new BackendDevsConnectorService();
         }
 
         public TImage GetImage(int id)
@@ -66,7 +63,6 @@ namespace Tinifier.Core.Services.Media
 
         public async void OptimizeImage(TImage image)
         {
-            var userDomain = HttpContext.Current.Request.Url.Host;
             _stateService.CreateState(1);
             var tinyResponse = await _tinyPngConnectorService.SendImageToTinyPngService(GetUrl(image.Url));
 
@@ -77,15 +73,6 @@ namespace Tinifier.Core.Services.Media
             }
 
             UpdateImageAfterSuccessfullRequest(tinyResponse, image);
-
-            try
-            {
-                HostingEnvironment.QueueBackgroundWorkItem(stat => _backendDevsConnectorService.SendStatistic(userDomain));
-            }
-            catch (NotSuccessfullRequestException)
-            {
-                return;
-            }
         }
 
         public TImage GetImage(string path)
