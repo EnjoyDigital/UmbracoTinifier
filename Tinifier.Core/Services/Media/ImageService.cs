@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Hosting;
 using System.Web.Script.Serialization;
 using Tinifier.Core.Infrastructure;
 using Tinifier.Core.Infrastructure.Exceptions;
@@ -154,7 +153,7 @@ namespace Tinifier.Core.Services.Media
 
         private void UpdateImage(TImage image, byte[] bytesArray)
         {
-            var path = HttpContext.Current.Server.MapPath($"~{image.Url}");
+            var path = HttpContext.Current.Server.MapPath(string.Concat("~", image.Url));
 
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
             {

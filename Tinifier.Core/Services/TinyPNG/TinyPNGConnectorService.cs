@@ -28,7 +28,7 @@ namespace Tinifier.Core.Services.TinyPNG
 
         public async Task<TinyResponse> SendImageToTinyPngService(string imageUrl)
         {
-            var imageBytes = System.IO.File.ReadAllBytes(HttpContext.Current.Server.MapPath($"~{imageUrl}"));
+            var imageBytes = System.IO.File.ReadAllBytes(HttpContext.Current.Server.MapPath(string.Concat("~",imageUrl)));
             var tinyResponse = await TinifyByteArray(imageBytes);
 
             return tinyResponse;
