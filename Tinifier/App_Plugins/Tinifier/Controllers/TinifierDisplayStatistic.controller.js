@@ -94,16 +94,16 @@
             }
         });
     };
-
+    var intTimer, drawTimer, timert;
     $scope.intervalFunction = function () {
-        $timeout(function () {
+        intTimer = $timeout(function() {
             $scope.getData();
             $scope.intervalFunction();
-        }, 2000)
+        }, 2000);
     };
 
     $scope.intervalDrawChartFunction = function () {
-        $timeout(function () {
+        drawTimer = $timeout(function () {
             drawChart();
             $scope.intervalDrawChartFunction();
         }, 10000);
@@ -119,7 +119,7 @@
     };
 
     $scope.timer = function () {
-        $timeout(function () {
+        timert =$timeout(function () {
             $scope.decrementTimer();
             $scope.timer();
         }, 900);
@@ -128,4 +128,10 @@
     $scope.timer();
     $scope.intervalFunction();
     $scope.intervalDrawChartFunction();
+
+    $scope.$on('$locationChangeStart', function () {
+        $timeout.cancel(intTimer);
+        $timeout.cancel(drawTimer);
+        $timeout.cancel(timert);
+    });
 });

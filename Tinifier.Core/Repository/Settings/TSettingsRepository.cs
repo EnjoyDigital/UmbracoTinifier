@@ -40,7 +40,7 @@ namespace Tinifier.Core.Repository.Settings
         /// <param name="currentMonthRequests">currentMonthRequests</param>
         public void Update(int currentMonthRequests)
         {
-            var query = new Sql("UPDATE TinifierUserSettings SET CurrentMonthRequests @0", currentMonthRequests);
+            var query = new Sql("UPDATE TinifierUserSettings SET CurrentMonthRequests = @0", currentMonthRequests);
             _database.Execute(query);
         }
     }
