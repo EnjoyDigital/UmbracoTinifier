@@ -345,12 +345,12 @@
     <Content Include="Global.asax" />
     <Content Include="Media\1057\grass-png-4770.png" />
     <Content Include="Media\1058\firefox_png16.png" />
-    <Content Include="Media\Pictures\fat.jpg" />
-    <Content Include="Media\Pictures\photo.jpg" />
-    <Content Include="Media\Pictures\runPanda.jpg" />
-    <Content Include="Media\Pictures\sleeping_panda_by_citruspop-d2v8hdd.jpg" />
-    <Content Include="Media\Pictures\spinner.gif" />
-    <Content Include="Media\Pictures\support.jpg" />
+    <Content Include="App_Plugins\Tinifier\media\fat.jpg" />
+    <Content Include="App_Plugins\Tinifier\media\photo.jpg" />
+    <Content Include="App_Plugins\Tinifier\media\runPanda.jpg" />
+    <Content Include="App_Plugins\Tinifier\media\sleeping_panda_by_citruspop-d2v8hdd.jpg" />
+    <Content Include="App_Plugins\Tinifier\media\spinner.gif" />
+    <Content Include="App_Plugins\Tinifier\media\support.jpg" />
     <Content Include="scripts\fanoe.js" />
     <Content Include="Web.config" />
   </ItemGroup>

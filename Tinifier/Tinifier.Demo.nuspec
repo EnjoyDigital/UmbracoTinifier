@@ -16,7 +16,6 @@
   <files>
     <file src="bin\Tinifier.Core.dll" target="lib\net45"/>
     <file src="App_Plugins\Tinifier\**" target="content\App_Plugins\Tinifier\"/>
-    <file src="Media\Pictures\**" target="content\Media\Pictures\"/>
   </files>
 
 
