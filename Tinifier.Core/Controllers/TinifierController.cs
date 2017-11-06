@@ -236,7 +236,7 @@ namespace Tinifier.Core.Controllers
         {
             return Request.CreateResponse(HttpStatusCode.OK,
                 new TNotification(PackageConstants.TinifyingFinished,
-                    $"{optimized}/{total} images were optimized. Enjoy the package? Click the message and rate us!", type)
+                    string.Format(@"{0}/{1} images were optimized. Enjoy the package? Click the message and rate us!", optimized, total), type)
                 {
                     url = "https://our.umbraco.org/projects/backoffice-extensions/tinifier/"
                 });

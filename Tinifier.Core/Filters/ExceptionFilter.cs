@@ -43,7 +43,7 @@ namespace Tinifier.Core.Filters
 
         private string GetUnknownErrorMessage(Exception ex)
         {
-            return $"{ex.Message}. We logged the error, if you are a hero, please take it and post in the forum (just click on this message)";
+            return string.Format("{0}. We logged the error, if you are a hero, please take it and post in the forum (just click on this message)", ex.Message);
         }
     }
 }

@@ -5,11 +5,17 @@ namespace Tinifier.Core.Models
 {
     public class TNotification
     {
+        public TNotification()
+        {
+            sticky = false;
+            type = "info";
+        }
+
         public string headline { get; set; }
         public string message { get; set; }
         public string url { get; set; }
-        public bool sticky { get; set; } = false;
-        public string type { get; set; } = "info";
+        public bool sticky { get; set; } 
+        public string type { get; set; } 
 
         public TNotification(string text)
         {

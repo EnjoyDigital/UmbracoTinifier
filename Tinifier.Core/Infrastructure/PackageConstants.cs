@@ -4,6 +4,11 @@ namespace Tinifier.Core.Infrastructure
 {
     public class PackageConstants
     {
+
+        public PackageConstants()
+        {
+          SupportedExtensions  = new string[]{"PNG", "JPEG", "JPE", "JPG"};
+        }
         public const int MonthlyRequestsLimit = 500;
         public const int MaxImageSize = 14000000;
         public const string TinyPngUrl = "https://api.tinify.com";
@@ -77,9 +82,6 @@ namespace Tinifier.Core.Infrastructure
 
         public const string TinifyingFinished = "Tinifying finished";
 
-        public static IEnumerable<string> SupportedExtensions { get; } = new string[]
-        {
-            "PNG", "JPEG", "JPE", "JPG"
-        };
+        public static IEnumerable<string> SupportedExtensions { get; private set; } 
     }
 }

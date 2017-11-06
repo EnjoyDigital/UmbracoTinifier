@@ -10,7 +10,11 @@ namespace Tinifier.Core.Services.Media
 {
     public abstract class BaseImageService
     {
-        public IFileSystem FileSystem { get; private set; } = FileSystemProviderManager.Current.GetFileSystemProvider<MediaFileSystem>();
+        public BaseImageService()
+        {
+            FileSystem = FileSystemProviderManager.Current.GetFileSystemProvider<MediaFileSystem>();
+        }
+        public IFileSystem FileSystem { get; private set; } 
 
         public IEnumerable<TImage> Convert(IEnumerable<uModels.Media> items)
         {
