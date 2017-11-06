@@ -21,7 +21,6 @@ namespace Tinifier.Core.Repository.Settings
         public TSetting GetSettings()
         {
             var query = new Sql("SELECT * FROM TinifierUserSettings ORDER BY Id DESC");
-
             return _database.FirstOrDefault<TSetting>(query);
         }
 

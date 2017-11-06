@@ -8,8 +8,31 @@
     $scope.TotalOptimizedImages = 0;
     $scope.UpdateSeconds = 10;
     $scope.TotalSavedBytes = 0;
+    if (typeof(google) == "undefined")
+        loadScript("https://www.gstatic.com/charts/loader.js", googleInit)
+    else
+        googleInit();
+
+    function googleInit() {
     google.charts.load("current", { packages: ["corechart"] });
     google.charts.setOnLoadCallback(drawChart);
+    }
+
+    function loadScript(url, callback) {
+        // Adding the script tag to the head as suggested before
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+
+        // Then bind the event to the callback function.
+        // There are several events for cross browser compatibility.
+        script.onreadystatechange = callback;
+        script.onload = callback;
+
+        // Fire the loading
+        head.appendChild(script);
+    }
 
     function drawChart() {
         $http.get("/umbraco/backoffice/api/TinifierImagesStatistic/GetStatistic").then(function (response) {
@@ -27,8 +50,7 @@
         });
     }
 
-    function DataColumnChart(response)
-    {
+    function DataColumnChart(response) {
         var dataArray = [['Date', 'Number of optimized images']];
         for (var n = 0; n < response.data.history.length; n++) {
             dataArray.push([response.data.history[n].OccuredAt, parseInt(response.data.history[n].NumberOfOptimized)])
@@ -88,15 +110,19 @@
                 document.getElementById("updateSeconds").style.display = "none";
             } else {
                 document.getElementById("statusPanda").src = "/App_Plugins/Tinifier/media/runPanda.jpg";
+                document.getElementById("tinifierStatus").innerHTML = "";
+                document.getElementById("tinifierStatus").innerHTML = "Processing: " + response.data.CurrentImage + " / " + response.data.AmounthOfImages;
                 $scope.currentImage = response.data.CurrentImage;
                 $scope.amounthOfImages = response.data.AmounthOfImages;
                 document.getElementById("updateSeconds").style.display = "block";
+                document.getElementById("resetButton").style.display = "inline-block";
             }
         });
     };
     var intTimer, drawTimer, timert;
+    var intTimer, drawTimer, timert;
     $scope.intervalFunction = function () {
-        intTimer = $timeout(function() {
+        intTimer = $timeout(function () {
             $scope.getData();
             $scope.intervalFunction();
         }, 2000);
@@ -119,7 +145,7 @@
     };
 
     $scope.timer = function () {
-        timert =$timeout(function () {
+        timert = $timeout(function () {
             $scope.decrementTimer();
             $scope.timer();
         }, 900);
@@ -134,4 +160,12 @@
         $timeout.cancel(drawTimer);
         $timeout.cancel(timert);
     });
+
+    $scope.stopTinifing = function () {
+        $http.delete("/umbraco/backoffice/api/TinifierState/DeleteActiveState").success(function (response) {
+            notificationsService.success("Success", "Tinifing successfully stoped!");
+        }).error(function (response) {
+            notificationsService.error("Error", "Tinifing can`t stop now!");
+        });
+    };
 });

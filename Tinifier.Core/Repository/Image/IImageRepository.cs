@@ -8,9 +8,11 @@ namespace Tinifier.Core.Repository.Image
     /// <typeparam name="Media">Media type</typeparam>
     public interface IImageRepository<Media>
     {
-        void Update(int imageId);
+        void Update(int imageId, int actualSize);
 
         IEnumerable<Media> GetOptimizedItems();
+
+        IEnumerable<Media> GetTopOptimizedImages();
 
         IEnumerable<Media> GetItemsFromFolder(int folderId);
 

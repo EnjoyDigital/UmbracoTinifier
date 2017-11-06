@@ -1,4 +1,4 @@
-﻿angular.module("umbraco").controller("Tinifier.TinyTImage.Controller", function($scope, $routeParams, $http, notificationsService, dialogService) {
+﻿angular.module("umbraco").controller("Tinifier.TinyTImage.Controller", function ($scope, $routeParams, $http, notificationsService, dialogService) {
 
     // Get the ID from the route parameters (URL)
     var timageId = $routeParams.id;
@@ -15,13 +15,13 @@
     }
 
     // RecycleBinFolderId
-    var recycleBinFolderId = -21;
+    var recycleBinFolderId = "-21";
 
     // Get from the API
     $scope.timage = null;
 
     // Tinify Image and show notification
-    $scope.tinify = function() {
+    $scope.tinify = function () {
 
         // Check if user choose Image or recycle bin folder
         if (timageId === recycleBinFolderId) {
@@ -29,32 +29,40 @@
             return;
         }
 
-        notificationsService
-            .info("Tinifing.... Optimization started ! If you tinifing more than one Image you can see progress in the Tinifier 'Statistic' section");
-
-        if (arrOfNames.length !== 0) {
-            $http.get("/umbraco/backoffice/api/Tinifier/TinyTImage?" + $.param({ imageRelativeUrls: arrOfNames, mediaId: 0 }))
-                .success(function(response) {
-                    notificationsService.success("Success", response.SuccessOptimized);
-                }).error(function(response) {
-                    notificationsService.error("Error", response.Message);
-                });
-        } else {
-            $http.get("/umbraco/backoffice/api/Tinifier/TinyTImage?mediaId=" + timageId).success(function (response) {
-                notificationsService.success("Success", response.SuccessOptimized);
-                if (response.sourceType === 0) {
-                    dialogService.open({
-                        template: "/App_Plugins/Tinifier/BackOffice/timages/TinifierEdit.html"
-                    });
-                }
-            }).error(function (response) {
-                if (response.Error === 1){
-                    notificationsService.warning("Warning", response.Message);
-                }
-                else {
-                    notificationsService.error("Error", response.Message);
-                }
-            });
+        if (timageId == null) {
+            notificationsService.error("Error", "If you wish to optimize full Media folder, please, go to Tinifier section and click Tinify everything");
+            return;
         }
+
+        notificationsService
+            .add({
+                headline: "Tinifing started",
+                message: "click here for more details",
+                url: '/umbraco/#/tinifier',
+                type: 'success'
+            });
+
+        var url = arrOfNames.length !== 0
+            ? "/umbraco/backoffice/api/Tinifier/TinyTImage?" + $.param({ imageRelativeUrls: arrOfNames, mediaId: 0 })
+            : "/umbraco/backoffice/api/Tinifier/TinyTImage?mediaId=" + timageId;
+
+        $http.get(url)
+            .success(successHandler)
+            .error(errorHandler);
+
     };
+
+    $scope.tinifyAll = function () {
+        $http.put("/umbraco/backoffice/api/Tinifier/TinifyEverything")
+            .success(successHandler)
+            .error(errorHandler);
+    };
+
+    function successHandler(response) {
+        notificationsService.add(response);
+    }
+
+    function errorHandler(response) {
+        notificationsService.add(response);
+    }
 });
